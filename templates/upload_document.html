@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Document — DesFlyer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/upload_document.css" />
+    <link rel="stylesheet" href="/static/responsive.css" />
+  </head>
+  <body class="upload-page">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="DesFlyer home"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M7 3.75h7l4.25 4.5v12H7z"/><path d="M14 3.75v4.5h4.25M9.5 12h6M9.5 15h6M9.5 18h4"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link" href="/"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>Dashboard</a>
+        <a class="nav-link" href="/documents"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg>Documents Controller</a>
+        <a class="nav-link active" href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M12 16V9m-3 3 3-3 3 3"/></svg>Upload Document</a>
+        <a class="nav-link" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Employees Details</a>
+        <a class="nav-link" href="/clients"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1m-6 4h1m4 0h1m-6 7v-4h4v4"/></svg>Clients</a>
+        <a class="nav-link" href="/projects"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="1"/><path d="M8 5V3h8v2M3 10h18m-12 4h6"/></svg>Projects</a>
+        <a class="nav-link" href="/employees/new"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Add Employees</a>
+        <div class="nav-section">Account</div><a class="nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg>Profile</a>
+      </nav>
+      <button class="logout" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button>
+    </aside>
+    <header class="upload-topbar"><div class="breadcrumbs"><a href="/">Dashboard</a><span>›</span><a href="/#recent">Documents</a><span>›</span><strong>Upload Document</strong></div><div class="user-avatar" aria-label="Account">A</div></header>
+
+    <main class="upload-main">
+      <div class="upload-content">
+        <header class="upload-heading"><h1>Upload Document</h1><p>Add a document to an employee, client, or project record.</p></header>
+        <form id="upload-form" class="workflow-card">
+          <section class="workflow-step employee-step">
+            <div class="step-title"><span class="step-number">1</span><h2>Select Document Owner</h2></div>
+            <div class="employee-picker-row">
+              <label class="owner-type-field"><span>Document For</span><select id="owner-type"><option value="employee">Employee</option><option value="client">Client</option><option value="project">Project</option></select></label>
+              <div class="employee-search-wrap" id="employee-search-wrap"><label id="owner-search-label" for="employee-search">Search Employee</label><div class="employee-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="employee-search" type="search" placeholder="Search by name or ID" autocomplete="off" aria-label="Search Employee" /><button type="button" id="employee-menu-toggle" aria-label="Show matching owners">⌄</button></div><div id="employee-menu" class="employee-menu" hidden></div></div>
+              <div id="selected-employee" class="selected-employee" hidden><span class="selected-avatar" id="selected-avatar">—</span><span class="selected-info"><strong id="selected-name"></strong><small id="selected-meta"></small></span><button type="button" class="clear-employee" id="clear-employee" aria-label="Remove selected owner">×</button></div>
+              <p class="employee-empty" id="employee-empty">No employee selected</p>
+            </div>
+          </section>
+
+          <section class="workflow-step file-step">
+            <div class="step-title"><span class="step-number">2</span><h2>Upload Document</h2></div>
+            <input id="document-file" name="file" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" hidden />
+            <div class="dropzone" id="dropzone" role="button" tabindex="0"><span class="upload-symbol"><svg viewBox="0 0 24 24"><path d="M6 16.5a4 4 0 0 1 .4-8 5.8 5.8 0 0 1 11.1 1.2 3.5 3.5 0 0 1 .2 6.9"/><path d="M12 19V11m-3 3 3-3 3 3"/></svg></span><strong>Click to upload or drag and drop</strong><small>PDF, DOC, DOCX, JPG or PNG (max. 20MB)</small></div>
+            <div class="file-row" id="file-row" hidden><span class="file-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h4"/></svg></span><div class="file-progress-content"><div class="file-progress-heading"><strong id="file-name"></strong><span id="file-percent">100%</span></div><div class="progress-track"><span></span></div></div><button type="button" id="remove-file" aria-label="Remove file"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 14h10l1-14M9 7V4h6v3"/></svg></button></div>
+          </section>
+
+          <section class="workflow-step info-step">
+            <div class="step-title"><span class="step-number">3</span><h2>Document Information</h2></div>
+            <div class="document-fields"><label class="upload-field"><span>Document Name</span><input id="document-name" name="document_name" placeholder="Enter document name" required /></label><label class="upload-field"><span>Document Category</span><select id="document-category" name="category" required><option>Offer Letter</option><option>Certificate</option><option>Policy</option><option>Legal</option><option>Identity</option><option>Tax</option><option>Contract</option><option>Training</option><option>Performance</option><option>Others</option></select></label></div>
+          </section>
+
+          <section class="upload-summary">
+            <h2>Upload Summary</h2>
+            <div class="summary-grid"><div><span>Owner Type</span><strong id="summary-owner-type">Employee</strong></div><div><span>Document Owner</span><strong id="summary-owner">—</strong></div><div><span>Category</span><strong id="summary-category">Offer Letter</strong></div><div><span>File Size</span><strong id="summary-size">—</strong></div></div>
+            <div class="upload-actions"><p class="upload-message" id="upload-message" role="status"></p><a class="cancel-upload" href="/">Cancel</a><button class="submit-upload" type="submit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>Upload Document</button></div>
+          </section>
+        </form>
+      </div>
+    </main>
+    <script src="/static/upload_document.js"></script>
+  </body>
+</html>

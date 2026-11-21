@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile — DesFlyer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/admin_profile.css" />
+    <link rel="stylesheet" href="/static/responsive.css" />
+  </head>
+  <body class="profile-page">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="DesFlyer home"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M7 3.75h7l4.25 4.5v12H7z"/><path d="M14 3.75v4.5h4.25M9.5 12h6M9.5 15h6M9.5 18h4"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link" href="/"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>Dashboard</a>
+        <a class="nav-link" href="/documents"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg>Documents Controller</a>
+        <a class="nav-link" href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M12 16V9m-3 3 3-3 3 3"/></svg>Upload Documents</a>
+        <a class="nav-link" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Employees Details</a>
+        <a class="nav-link" href="/clients"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1m-6 4h1m4 0h1m-6 7v-4h4v4"/></svg>Clients</a>
+        <a class="nav-link" href="/projects"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="1"/><path d="M8 5V3h8v2M3 10h18m-12 4h6"/></svg>Projects</a>
+        <a class="nav-link" href="/employees/new"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Add Employees</a>
+        <div class="nav-section">Account</div><a class="nav-link active" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg>Profile</a>
+      </nav>
+      <button class="logout" type="button" id="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button>
+    </aside>
+    <header class="profile-topbar"><div class="breadcrumbs"><a href="/">DesFlyer Admin</a><span>›</span><strong>Profile</strong></div><div class="user-avatar">A</div></header>
+
+    <main class="profile-main">
+      <div class="profile-content">
+        <header class="profile-heading"><h1>My Profile</h1><p>Manage your Desflyer administrator account.</p></header>
+        <section class="profile-banner"><div class="admin-avatar">DA</div><div class="admin-identity"><h2 id="banner-name">DesFlyer Admin</h2><p id="banner-email">admin@desflyer.com</p><span>Administrator</span></div></section>
+        <div class="profile-grid">
+          <section class="profile-card personal-card"><header class="card-heading"><h2>Personal Information</h2><button class="edit-profile" id="edit-profile" type="button"><svg viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10z"/></svg>Edit Profile</button></header><div class="personal-info"><div class="personal-field"><span>Full Name</span><strong id="profile-name">DesFlyer Admin</strong></div><div class="personal-field"><span>Email Address</span><strong id="profile-email">admin@desflyer.com</strong></div><div class="personal-field password-field"><span>Password</span><strong id="profile-password">••••••••••••</strong></div></div></section>
+          <section class="profile-card categories-card"><header class="card-heading"><h2>Add Categories</h2></header><form id="category-form" class="category-form"><input id="category-name" placeholder="Enter..." aria-label="New category name" required /><button type="submit">Add</button></form><div class="category-chips" id="category-chips"></div></section>
+        </div>
+        <section class="profile-card security-card"><header class="security-heading"><h2>Security Settings</h2></header><button class="security-row" id="change-password" type="button"><span><strong>Change Password</strong><small>Update your account password regularly.</small></span><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button><button class="security-row" id="toggle-2fa" type="button"><span><strong>Two-Factor Authentication (2FA)</strong><small>Add an extra layer of security to your account.</small></span><span class="security-row-right"><span class="enabled-badge" id="two-factor-status">Enabled</span><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span></button><button class="security-row" id="login-activity" type="button"><span><strong>Login Activity</strong><small>Review recent sessions and devices.</small></span><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></section>
+        <section class="danger-zone"><p>Logging out will end your current session across this browser.</p><strong>DANGER ZONE</strong><button id="logout-button" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button></section>
+      </div>
+    </main>
+
+    <dialog class="profile-dialog" id="profile-dialog"><button class="dialog-close" data-close="profile-dialog" type="button">×</button><h2>Edit Profile</h2><form id="profile-form"><label>Full Name<input name="name" id="edit-name" required /></label><label>Email Address<input name="email" id="edit-email" type="email" required /></label><p class="dialog-message" id="profile-message"></p><button class="dialog-submit" type="submit">Save Changes</button></form></dialog>
+    <dialog class="profile-dialog" id="password-dialog"><button class="dialog-close" data-close="password-dialog" type="button">×</button><h2>Change Password</h2><form id="password-form"><label id="current-password-wrap">Current Password<input name="current_password" type="password" autocomplete="current-password" /></label><label>New Password<input name="new_password" type="password" minlength="8" autocomplete="new-password" required /></label><label>Confirm New Password<input name="confirm_password" type="password" minlength="8" autocomplete="new-password" required /></label><p class="dialog-message" id="password-message"></p><button class="dialog-submit" type="submit">Update Password</button></form></dialog>
+    <dialog class="profile-dialog activity-dialog" id="activity-dialog"><button class="dialog-close" data-close="activity-dialog" type="button">×</button><h2>Login Activity</h2><p>Authentication is not configured for this app yet. Activity history will appear here once sign-in is connected.</p><button class="dialog-submit" data-close="activity-dialog" type="button">Close</button></dialog>
+    <div class="profile-toast" id="profile-toast" role="status" aria-live="polite"></div>
+    <script src="/static/admin_profile.js"></script>
+  </body>
+</html>

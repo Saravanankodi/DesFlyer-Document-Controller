@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Documents — DesFlyer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/employee_documents.css" />
+    <link rel="stylesheet" href="/static/share_popover.css" />
+    <link rel="stylesheet" href="/static/responsive.css" />
+  </head>
+  <body class="employee-docs-page">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="DesFlyer home"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M7 3.75h7l4.25 4.5v12H7z"/><path d="M14 3.75v4.5h4.25M9.5 12h6M9.5 15h6M9.5 18h4"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link" href="/"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>Dashboard</a>
+        <a class="nav-link" href="/documents"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg>Documents Controller</a>
+        <a class="nav-link" href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M12 16V9m-3 3 3-3 3 3"/></svg>Upload Documents</a>
+        <a class="nav-link active" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Employee Details</a>
+        <a class="nav-link" href="/clients"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1m-6 4h1m4 0h1m-6 7v-4h4v4"/></svg>Clients</a>
+        <a class="nav-link" href="/projects"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="1"/><path d="M8 5V3h8v2M3 10h18m-12 4h6"/></svg>Projects</a>
+        <a class="nav-link" href="/employees/new"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg>Add Employees</a>
+        <div class="nav-section">Account</div><a class="nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg>Profile</a>
+      </nav>
+      <button class="logout" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button>
+    </aside>
+    <header class="employee-topbar"><div class="breadcrumbs"><a href="/">Home</a><span>›</span><a href="/documents">Documents</a><span>›</span><strong>Employee Documents</strong></div><div class="user-avatar">A</div></header>
+
+    <main class="employee-main">
+      <div class="employee-content">
+        <header class="employee-heading"><h1>Employee Documents</h1><p>View and manage documents associated with an employee.</p></header>
+        <div class="employee-summary-grid">
+          <section class="employee-search-card"><h2>Search Documents</h2><label class="employee-global-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="employee-global-query" type="search" placeholder="Search documents..." /></label></section>
+          <section class="employee-summary"><div class="employee-summary-main"><div class="employee-avatar" id="employee-avatar">SJ</div><div class="employee-summary-info"><div class="employee-name-line"><h2 id="employee-name">Loading employee…</h2><span class="active-pill">Active</span></div><div class="employee-meta"><span><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg><i id="employee-code">—</i></span><span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="1"/><path d="M9 6V4h6v2M4 11h16"/></svg><i id="employee-designation">—</i></span><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 8h2v2H8zm6 0h2v2h-2zM8 14h2v2H8zm6 0h2v2h-2z"/></svg><i id="employee-department">—</i></span></div></div></div><span class="summary-divider"></span><div class="employee-doc-count"><strong id="document-count">0</strong><b>Total Documents</b><small>Stored for this employee</small></div></section>
+        </div>
+        <section class="employee-doc-list">
+          <header class="doc-list-header"><div><h2><span id="list-employee-name">Employee</span>’s Documents</h2><p id="documents-found">0 documents found</p></div><div class="doc-list-filters"><label class="list-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="document-query" type="search" placeholder="Search documents..." /></label><select id="format-filter" aria-label="Filter by type"><option value="">Type: All</option><option>PDF</option><option>DOC</option><option>DOCX</option><option>JPG</option><option>JPEG</option><option>PNG</option><option>XLSX</option></select><select id="sort-order" aria-label="Sort documents"><option value="newest">Sort: Newest</option><option value="oldest">Sort: Oldest</option></select></div></header>
+          <div class="employee-table-wrap"><table class="employee-doc-table"><thead><tr><th>Document Name</th><th>Type</th><th>Uploaded On</th><th>Priority</th><th>File Size</th><th>Action</th></tr></thead><tbody id="employee-document-rows"></tbody></table><div class="employee-empty" id="employee-empty" hidden>No documents found for this employee.</div></div>
+          <footer class="employee-doc-footer"><span id="showing-documents">Showing 0 to 0 of 0 documents</span><div><button id="documents-prev" type="button" aria-label="Previous page">‹</button><button id="documents-next" type="button" aria-label="Next page">›</button></div></footer>
+        </section>
+      </div>
+    </main>
+    <div class="employee-toast" id="employee-toast" role="status" aria-live="polite"></div>
+    <script src="/static/share_popover.js"></script>
+    <script src="/static/employee_documents.js"></script>
+  </body>
+</html>
