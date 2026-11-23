@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/static/document_viewer.css" />
     <link rel="stylesheet" href="/static/share_popover.css" />
     <link rel="stylesheet" href="/static/responsive.css" />
+    <link rel="stylesheet" href="/static/mobile_dashboard.css" />
+    <link rel="stylesheet" href="/static/mobile_document_viewer.css" />
   </head>
   <body class="viewer-page">
     <header class="viewer-header">
@@ -41,7 +43,22 @@
       </aside>
     </main>
     <div class="viewer-toast" id="viewer-toast" role="status" aria-live="polite"></div>
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation" data-expanded="false">
+      <div class="mobile-quick-actions" id="mobile-quick-actions" hidden>
+        <a href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M12 15V4m-4 4 4-4 4 4M5 14v5h14v-5"/></svg><span>Upload Document</span></a>
+        <a href="/employees/new"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.4-3.3 2.2-5 5.5-5s5.1 1.7 5.5 5M18 7v7m-3.5-3.5h7"/></svg><span>Add Employee</span></a>
+      </div>
+      <div class="mobile-nav-items">
+        <a class="mobile-nav-link active" href="/" aria-label="Home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+        <a class="mobile-nav-link" href="/documents"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><span>Documents</span></a>
+        <span class="mobile-nav-spacer" aria-hidden="true"></span>
+        <a class="mobile-nav-link" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg><span>Employees</span></a>
+        <a class="mobile-nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg><span>Profile</span></a>
+      </div>
+      <button class="mobile-nav-fab" type="button" aria-label="Open quick actions" aria-expanded="false" aria-controls="mobile-quick-actions"><svg class="mobile-nav-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><svg class="mobile-nav-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </nav>
     <script src="/static/share_popover.js"></script>
     <script src="/static/document_viewer.js"></script>
+    <script src="/static/mobile_dashboard.js"></script>
   </body>
 </html>

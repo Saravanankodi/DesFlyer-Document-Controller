@@ -1,0 +1,42 @@
+@media(max-width:700px){
+  .add-page{min-width:0;padding:0}
+  .add-page .sidebar,.add-page .add-topbar{display:none}
+  .add-page .add-main{position:relative;width:100%;height:auto;min-height:1111px;margin:0;overflow:visible;padding:0;background:#f9f9ff}
+  .add-page .add-content{position:relative;width:100%;height:1111px;min-height:1111px}
+  .add-page .add-heading{position:absolute;top:65px;right:14px;left:14px;height:auto;margin:0}
+  .add-page .add-heading h1{font:500 24px/32px var(--sans);letter-spacing:-.24px}
+  .add-page .add-heading p{font:14px/20px var(--serif);white-space:nowrap}
+  .add-page .add-columns{display:block}
+  .add-page .employee-form{position:absolute;top:133px;left:0;right:0;width:100%;height:524px;min-height:0;padding:24px;background:#fff;border-radius:0}
+  .add-page .photo-section{height:145px}
+  .add-page .photo-row{gap:24px;margin-top:8px}
+  .add-page .photo-controls{grid-template-columns:max-content max-content;grid-template-rows:36px 36px;column-gap:24px;row-gap:8px;align-items:center}
+  .add-page .photo-controls small{max-width:242px;font:13px/18px var(--serif)}
+  .add-page .field-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:24px;margin-top:24px;padding-bottom:24px}
+  .add-page .field-grid .field{min-width:0}
+  .add-page .field-grid .field-label,.add-page .department-field .field-label{font-size:14px}
+  .add-page .department-field{margin-top:0}
+  .add-page .preview-column{position:absolute;z-index:2;top:583px;right:25px;left:25px;width:auto;max-width:none}
+  .add-page .preview-column h2{height:16px;margin:0 0 16px;font:600 14px/16px var(--sans);letter-spacing:.65px}
+  .add-page .preview-card{height:305px;min-height:0}
+  .add-page .preview-banner{height:84px;padding:16px;gap:14px}
+  .add-page .preview-banner strong{font-size:17px}
+  .add-page .preview-details{padding:24px}
+  .add-page .preview-designation{font-size:14px;line-height:20px}
+  .add-page .preview-rule{margin:12px 0 16px}
+  .add-page .preview-details p{margin-bottom:10px;font-size:14px;line-height:18px}
+  .add-page .form-actions{top:816px;right:25px;bottom:auto;z-index:3}
+  .add-page .form-message{top:866px;right:25px;bottom:auto;left:25px;z-index:3}
+}
+
+@media(max-width:380px){
+  .add-page .add-heading{right:12px;left:12px}
+  .add-page .add-heading p{font-size:12px}
+  .add-page .employee-form{padding-right:16px;padding-left:16px}
+  .add-page .photo-row{gap:12px}
+  .add-page .photo-placeholder{width:88px;height:96px}
+  .add-page .photo-controls{column-gap:10px}
+  .add-page .photo-controls small{max-width:calc(100vw - 160px)}
+  .add-page .field-grid{column-gap:12px}
+  .add-page .preview-column{right:16px;left:16px}
+}

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/static/employee_documents.css" />
     <link rel="stylesheet" href="/static/share_popover.css" />
     <link rel="stylesheet" href="/static/responsive.css" />
+    <link rel="stylesheet" href="/static/mobile_dashboard.css" />
+    <link rel="stylesheet" href="/static/mobile_employee_documents.css" />
   </head>
   <body class="employee-docs-page">
     <aside class="sidebar">
@@ -33,7 +35,7 @@
       <div class="employee-content">
         <header class="employee-heading"><h1>Employee Documents</h1><p>View and manage documents associated with an employee.</p></header>
         <div class="employee-summary-grid">
-          <section class="employee-search-card"><h2>Search Documents</h2><label class="employee-global-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="employee-global-query" type="search" placeholder="Search documents..." /></label></section>
+          <section class="employee-search-card"><h2 class="search-heading-desktop">Search Documents</h2><h2 class="search-heading-mobile">Search Employee</h2><label class="employee-global-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="employee-global-query" type="search" placeholder="Search documents..." /></label><label class="employee-switch-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="employee-switch-query" type="search" placeholder="Search employee..." aria-label="Search employee by name or ID" autocomplete="off" /><div class="employee-switch-results" id="employee-switch-results" hidden></div></label></section>
           <section class="employee-summary"><div class="employee-summary-main"><div class="employee-avatar" id="employee-avatar">SJ</div><div class="employee-summary-info"><div class="employee-name-line"><h2 id="employee-name">Loading employee…</h2><span class="active-pill">Active</span></div><div class="employee-meta"><span><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg><i id="employee-code">—</i></span><span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="1"/><path d="M9 6V4h6v2M4 11h16"/></svg><i id="employee-designation">—</i></span><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 8h2v2H8zm6 0h2v2h-2zM8 14h2v2H8zm6 0h2v2h-2z"/></svg><i id="employee-department">—</i></span></div></div></div><span class="summary-divider"></span><div class="employee-doc-count"><strong id="document-count">0</strong><b>Total Documents</b><small>Stored for this employee</small></div></section>
         </div>
         <section class="employee-doc-list">
@@ -46,5 +48,20 @@
     <div class="employee-toast" id="employee-toast" role="status" aria-live="polite"></div>
     <script src="/static/share_popover.js"></script>
     <script src="/static/employee_documents.js"></script>
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation" data-expanded="false">
+      <div class="mobile-quick-actions" id="mobile-quick-actions" hidden>
+        <a href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M12 15V4m-4 4 4-4 4 4M5 14v5h14v-5"/></svg><span>Upload Document</span></a>
+        <a href="/employees/new"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.4-3.3 2.2-5 5.5-5s5.1 1.7 5.5 5M18 7v7m-3.5-3.5h7"/></svg><span>Add Employee</span></a>
+      </div>
+      <div class="mobile-nav-items">
+        <a class="mobile-nav-link" href="/"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+        <a class="mobile-nav-link" href="/documents"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><span>Documents</span></a>
+        <span class="mobile-nav-spacer" aria-hidden="true"></span>
+        <a class="mobile-nav-link active" href="/employees" aria-current="page"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg><span>Employees</span></a>
+        <a class="mobile-nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg><span>Profile</span></a>
+      </div>
+      <button class="mobile-nav-fab" type="button" aria-label="Open quick actions" aria-expanded="false" aria-controls="mobile-quick-actions"><svg class="mobile-nav-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><svg class="mobile-nav-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </nav>
+    <script src="/static/mobile_dashboard.js"></script>
   </body>
 </html>

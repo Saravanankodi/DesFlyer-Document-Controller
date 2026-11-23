@@ -1,0 +1,63 @@
+@media(max-width:700px){
+  .upload-page{min-width:0;padding:0;background:#f9f9ff}
+  .upload-page .sidebar,.upload-page .upload-topbar{display:none}
+  .upload-page .upload-main{width:100%;min-height:1111px;margin:0;padding:154px 0 0;background:#f9f9ff}
+  .upload-page .upload-content{width:100%;max-width:none}
+  .upload-page .upload-heading{display:none}
+  .upload-page .workflow-card{width:100%;height:auto;min-height:0;border-radius:4px;overflow:visible}
+  .upload-page .workflow-step{padding:24px;border-radius:0}
+  .upload-page .employee-step{position:relative;height:165px;min-height:0}
+  .upload-page .step-title{height:28px;gap:8px}
+  .upload-page .step-title h2{font-size:16px;line-height:24px}
+  .upload-page .owner-type-field{position:absolute;top:24px;right:24px;width:112px;height:32px;min-height:0;margin:0;padding:0;border:0;background:transparent;display:block}
+  .upload-page .owner-type-field>span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .upload-page .owner-type-field select{height:32px;padding:0 24px 0 8px;font-size:11px}
+  .upload-page .employee-picker-row{height:auto;min-height:0;margin-top:16px;display:grid;grid-template-columns:126px minmax(0,1fr);align-items:start;gap:14px}
+  .upload-page .employee-search-wrap{grid-column:1;grid-row:1;min-width:0}
+  .upload-page .employee-search-wrap>label{margin:0 0 8px;font-size:12px;line-height:16px;color:#141b2c;text-transform:none;letter-spacing:normal}
+  .upload-page .employee-search{height:40px}
+  .upload-page .employee-search input{min-width:0;padding:0 24px 0 32px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+  .upload-page .employee-search button{right:2px}
+  .upload-page .employee-picker-row .selected-employee,.upload-page .employee-picker-row .employee-empty{grid-column:2;grid-row:1;width:100%;height:82px;min-height:82px;align-self:start;padding:12px;gap:12px}
+  .upload-page .selected-avatar{width:48px;height:48px}
+  .upload-page .selected-info{min-width:0;flex:1;align-items:flex-start;white-space:normal}
+  .upload-page .selected-info strong,.upload-page .selected-info small{max-width:100%;font-size:12px;line-height:16px}
+  .upload-page .selected-info small{white-space:normal}
+  .upload-page .clear-employee{margin-left:0;font-size:22px}
+  .upload-page .employee-empty{font-size:11px;text-align:center}
+  .upload-page .file-step{height:263px;min-height:0;padding:24px}
+  .upload-page .file-step:has(.file-row:not([hidden])){height:337px}
+  .upload-page .dropzone{height:170px;margin-top:16px}
+  .upload-page .file-row{height:58px;margin-top:16px;padding:12px;gap:10px}
+  .upload-page .file-progress-heading strong{font-size:12px}
+  .upload-page .file-progress-heading span{font-size:12px}
+  .upload-page .info-step{height:153px;min-height:0;padding:24px}
+  .upload-page .document-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:16px}
+  .upload-page .upload-field{min-width:0;font-size:12px;line-height:16px}
+  .upload-page .upload-field input,.upload-page .upload-field select{height:46px;padding:0 10px;font-size:11px}
+  .upload-page .upload-summary{height:213px;min-height:0;margin:0 24px;padding:24px;background:#f9fafb}
+  .upload-page .upload-summary>h2{margin-bottom:16px}
+  .upload-page .summary-grid{height:68px;padding-bottom:8px;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 16px}
+  .upload-page .summary-grid div{min-width:0;gap:4px}
+  .upload-page .summary-grid span,.upload-page .summary-grid strong{font-size:12px;line-height:16px;overflow-wrap:anywhere;white-space:normal}
+  .upload-page .summary-grid .summary-desktop-label,.upload-page .summary-grid #summary-owner-type,.upload-page .summary-grid #summary-owner{display:none}
+  .upload-page .summary-grid .summary-mobile-label,.upload-page .summary-grid .summary-mobile-value{display:block}
+  .upload-page .upload-actions{height:53px;margin-top:12px;padding-top:16px;gap:12px;flex-wrap:nowrap}
+  .upload-page .upload-message{min-width:0;font-size:10px}
+  .upload-page .cancel-upload,.upload-page .submit-upload{height:36px;flex:none;padding:0 12px;font-size:12px}
+  .upload-page .cancel-upload{min-width:80px}
+  .upload-page .submit-upload{gap:6px}
+  .upload-page .submit-upload svg{width:15px;height:15px}
+}
+
+@media(max-width:380px){
+  .upload-page .workflow-step{padding-right:16px;padding-left:16px}
+  .upload-page .owner-type-field{right:16px;width:104px}
+  .upload-page .employee-picker-row{grid-template-columns:118px minmax(0,1fr);gap:10px}
+  .upload-page .employee-picker-row .selected-employee,.upload-page .employee-picker-row .employee-empty{padding:10px;gap:8px}
+  .upload-page .selected-info strong,.upload-page .selected-info small{font-size:11px}
+  .upload-page .upload-summary{margin-right:16px;margin-left:16px;padding-right:16px;padding-left:16px}
+  .upload-page .summary-grid{column-gap:10px}
+  .upload-page .upload-actions{gap:8px}
+  .upload-page .cancel-upload,.upload-page .submit-upload{padding:0 9px;font-size:11px}
+}

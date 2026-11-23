@@ -19,6 +19,7 @@ function initials(name) {
 }
 function setOwner(owner) {
   selectedOwner = owner || null;
+  const ownerTitle = ownerType[0].toUpperCase() + ownerType.slice(1);
   const card = document.querySelector('#selected-employee');
   const empty = document.querySelector('#employee-empty');
   card.hidden = !selectedOwner;
@@ -31,10 +32,17 @@ function setOwner(owner) {
     const ownerDetail = selectedOwner.designation || selectedOwner.company || selectedOwner.client_name || selectedOwner.status || '';
     document.querySelector('#selected-meta').textContent = [ownerCode, ownerDetail].filter(Boolean).join(' · ');
     document.querySelector('#summary-owner').textContent = selectedOwner.name;
+    document.querySelector('#summary-mobile-owner-name').textContent = selectedOwner.name;
+    document.querySelector('#summary-mobile-owner-id').textContent = ownerCode || '—';
   } else {
     document.querySelector('#summary-owner').textContent = '—';
+    document.querySelector('#summary-mobile-owner-name').textContent = '—';
+    document.querySelector('#summary-mobile-owner-id').textContent = '—';
   }
-  document.querySelector('#summary-owner-type').textContent = ownerType[0].toUpperCase() + ownerType.slice(1);
+  document.querySelector('#summary-owner-type').textContent = ownerTitle;
+  document.querySelector('#summary-mobile-name-label').textContent = ownerTitle;
+  document.querySelector('#summary-mobile-id-label').textContent = `${ownerTitle} ID`;
+  document.querySelector('#owner-step-heading').textContent = `Select ${ownerTitle}`;
 }
 function updateOwnerType() {
   ownerType = ownerTypeSelect.value;

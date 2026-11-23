@@ -1,6 +1,9 @@
 const employeeId = Number(window.location.pathname.match(/\/employees\/(\d+)\/documents/)?.[1]);
 const toast = document.querySelector('#employee-toast');
+const employeeSwitchQuery = document.querySelector('#employee-switch-query');
+const employeeSwitchResults = document.querySelector('#employee-switch-results');
 let allDocuments = [];
+let employeeChoices = [];
 let employeeData = null;
 let currentPage = 1;
 const rowsPerPage = 5;
@@ -52,6 +55,42 @@ function renderEmployee(employee) {
   document.querySelector('#employee-code').textContent = employee.employee_code || '—';
   document.querySelector('#employee-designation').textContent = employee.designation || '—';
   document.querySelector('#employee-department').textContent = employee.department || '—';
+  employeeSwitchQuery.value = employee.name;
+}
+
+async function loadEmployeeChoices() {
+  try {
+    const response = await fetch('/api/employees');
+    if (!response.ok) throw new Error('Could not load employees.');
+    employeeChoices = await response.json();
+  } catch (error) { showToast(error.message); }
+}
+
+function showEmployeeMatches(query) {
+  const needle = query.trim().toLowerCase();
+  employeeSwitchResults.replaceChildren();
+  if (!needle) { employeeSwitchResults.hidden = true; return; }
+  const matches = employeeChoices.filter((employee) => `${employee.name} ${employee.employee_code || ''}`.toLowerCase().includes(needle)).slice(0, 6);
+  if (!matches.length) {
+    const empty = document.createElement('div');
+    empty.className = 'employee-switch-empty';
+    empty.textContent = 'No matching employees';
+    employeeSwitchResults.append(empty);
+  } else {
+    matches.forEach((employee) => {
+      const option = document.createElement('button');
+      option.type = 'button';
+      option.className = 'employee-switch-option';
+      const name = document.createElement('strong');
+      const code = document.createElement('small');
+      name.textContent = employee.name;
+      code.textContent = employee.employee_code || '';
+      option.append(name, code);
+      option.addEventListener('click', () => { window.location.href = `/employees/${employee.id}/documents`; });
+      employeeSwitchResults.append(option);
+    });
+  }
+  employeeSwitchResults.hidden = false;
 }
 
 function iconFor(format) {
@@ -97,7 +136,8 @@ function renderRows() {
 
 async function loadDocuments() {
   if (!employeeId) return;
-  const query = [document.querySelector('#employee-global-query').value, document.querySelector('#document-query').value]
+  const globalQuery = window.matchMedia('(max-width:700px)').matches ? '' : document.querySelector('#employee-global-query').value;
+  const query = [globalQuery, document.querySelector('#document-query').value]
     .map((value) => value.trim()).filter(Boolean).join(' ');
   const params = new URLSearchParams({ sort: document.querySelector('#sort-order').value });
   if (query) params.set('q', query);
@@ -148,6 +188,17 @@ function queueLoad() {
   debounceTimer = setTimeout(loadDocuments, 200);
 }
 document.querySelector('#employee-global-query').addEventListener('input', queueLoad);
+employeeSwitchQuery.addEventListener('input', () => showEmployeeMatches(employeeSwitchQuery.value));
+employeeSwitchQuery.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    const firstOption = employeeSwitchResults.querySelector('.employee-switch-option');
+    if (firstOption) { event.preventDefault(); firstOption.click(); }
+  }
+  if (event.key === 'Escape') employeeSwitchResults.hidden = true;
+});
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.employee-switch-search')) employeeSwitchResults.hidden = true;
+});
 document.querySelector('#document-query').addEventListener('input', queueLoad);
 document.querySelector('#format-filter').addEventListener('change', queueLoad);
 document.querySelector('#sort-order').addEventListener('change', queueLoad);
@@ -157,4 +208,5 @@ document.addEventListener('click', (event) => {
   if (!event.target.closest('.employee-row-actions')) document.querySelectorAll('.row-menu').forEach((menu) => { menu.hidden = true; });
 });
 
+loadEmployeeChoices();
 loadDocuments();

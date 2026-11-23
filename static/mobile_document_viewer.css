@@ -1,0 +1,64 @@
+@media(max-width:700px){
+  .viewer-page{width:100%;min-width:0;height:auto;min-height:1665px;overflow-x:hidden;overflow-y:auto;padding:0 0 calc(74px + env(safe-area-inset-bottom));background:#f9f9ff}
+  .viewer-page .viewer-header{position:relative;inset:auto;width:100%;height:154px;padding:0;border:0;background:transparent}
+  .viewer-file-heading{position:absolute;top:56px;right:12px;left:25px;height:32px;gap:24px}
+  .viewer-close{width:32px;height:32px;flex:none}
+  .viewer-divider{height:24px;flex:none}
+  .viewer-title-group{flex:1}
+  .viewer-title-group>strong{max-width:100%;font-size:14px;line-height:16px}
+  .viewer-title-group>span{font-size:12px;line-height:16px}
+  .viewer-header-actions{position:absolute;top:107px;right:15px;display:flex;gap:12px}
+  .viewer-button{width:auto;height:36px;padding:0 14px;gap:8px;font-size:13px}
+  .viewer-button svg{width:15px;height:15px}
+  .viewer-layout{position:relative;inset:auto;display:flex;flex-direction:column;min-height:0;width:100%;margin:0}
+  .viewer-canvas{width:100%;height:654px;min-height:654px;flex:none;overflow:visible}
+  .viewer-toolbar{top:13px;left:50%;width:309px;max-width:calc(100vw - 48px);height:42px;justify-content:space-between;gap:7px;padding:0 8px;transform:translateX(-50%)}
+  .viewer-toolbar button{width:20px;min-width:20px;flex:none}
+  .page-indicator{min-width:44px;flex:none}
+  .viewer-toolbar>span#zoom-level{min-width:38px;flex:none}
+  .toolbar-divider{flex:none}
+  .viewer-page-scroll{position:relative;inset:auto;width:100%;height:auto;overflow:visible;padding:71px 24px 35px;display:flex;justify-content:center;align-items:flex-start}
+  .document-page{width:calc(100vw - 48px);height:auto;aspect-ratio:364 / 548;transform:scale(1);transform-origin:top center}
+  .mock-document{padding:48px}
+  .title-skeleton{width:209px;max-width:80%;height:32px;margin-bottom:56px}
+  .skeleton-lines{gap:12px;margin-bottom:48px}
+  .skeleton-lines span{height:16px}
+  .skeleton-lines span:nth-child(2){width:116%}
+  .skeleton-lines span:nth-child(3){width:116%}
+  .signature-row{gap:60px;margin-top:70px}
+  .signature-row div{width:128px;height:96px;flex:none}
+  .document-info{width:auto;min-width:0;min-height:0;margin:0 24px;display:flex;flex:none;overflow:visible;border:0;background:#fff}
+  .info-header{width:100%;height:99px;padding:24px;flex:none}
+  .info-header h1{margin:0 0 4px;font-size:18px;line-height:28px}
+  .info-header p{font-size:14px;line-height:18px}
+  .info-content{width:100%;height:auto;min-height:0;flex:none;overflow:visible;padding:24px}
+  .meta-block{margin:0 0 22px}
+  .meta-block h2{margin:0 0 5px;font-size:12px;line-height:16px}
+  .meta-block p{font-size:13px;line-height:18px}
+  .related-block{padding-bottom:26px;border-bottom:1px solid #eaecf0}
+  .related-person{gap:8px;flex-wrap:wrap;font-size:13px}
+  .employee-code-pill{margin-left:8px}
+  .meta-pair{grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid #eaecf0}
+  .meta-pair .meta-block{margin:0}
+  .info-actions{width:100%;height:133px;flex:none;padding:24px;gap:12px}
+  .info-download,.info-share{height:36px;flex:none;font-size:13px}
+  .viewer-toast{right:12px;bottom:calc(86px + env(safe-area-inset-bottom))}
+  .viewer-canvas.pdf-native-preview .viewer-toolbar{display:flex}
+  .viewer-canvas.pdf-native-preview .viewer-page-scroll{position:relative;inset:auto;overflow:visible;padding:71px 24px 35px}
+  .viewer-canvas.pdf-native-preview .document-page{width:calc(100vw - 48px);height:auto;aspect-ratio:364 / 548;transform:none!important}
+}
+
+@media(max-width:380px){
+  .viewer-file-heading{left:16px;gap:14px}
+  .viewer-title-group>strong{font-size:12px}
+  .viewer-header-actions{right:12px;gap:8px}
+  .viewer-button{padding:0 10px}
+  .viewer-page-scroll{padding-right:16px;padding-left:16px}
+  .document-page{width:calc(100vw - 32px)}
+  .mock-document{padding:32px}
+  .signature-row{gap:24px}
+  .document-info{margin-right:16px;margin-left:16px}
+  .info-content,.info-header,.info-actions{padding-right:16px;padding-left:16px}
+  .viewer-canvas.pdf-native-preview .viewer-page-scroll{padding-right:16px;padding-left:16px}
+  .viewer-canvas.pdf-native-preview .document-page{width:calc(100vw - 32px)}
+}

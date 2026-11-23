@@ -1,0 +1,53 @@
+@media(max-width:700px){
+  .explore-page{width:100%;min-width:0;min-height:941px;padding:0 0 calc(74px + env(safe-area-inset-bottom));overflow-x:hidden;background:#f9f9ff}
+  .explore-page .sidebar,.explore-page .explore-topbar{display:none}
+  .explore-page .explore-main{width:100%;min-height:941px;margin:0;padding:76px 13px 56px;background:#f9f9ff}
+  .explore-page .explore-content{width:100%;max-width:none;margin:0}
+  .explore-page .explore-heading{height:auto;min-height:0;display:block;margin:0}
+  .explore-page .explore-heading h1{font-size:24px;line-height:32px}
+  .explore-page .explore-heading p{max-width:100%;font-size:14px;line-height:20px}
+  .explore-page .owner-page-links{display:none}
+  .explore-page .explore-upload{height:36px;margin-top:23px;padding:0 14px;font-size:14px}
+  .explore-page .filter-bar{position:relative;width:100%;height:auto;min-height:0;margin-top:22px;padding:0;display:grid;grid-template-columns:144px 140px minmax(0,1fr);grid-auto-rows:36px;gap:10px 8px;border:0;border-radius:0;background:transparent;box-shadow:none}
+  .explore-page .document-search{grid-column:1/-1;width:100%;min-width:0;height:36px;margin-bottom:10px}
+  .explore-page .document-search input{height:36px;font-size:12px}
+  .explore-page .filter-divider,.explore-page #owner-filter{display:none}
+  .explore-page .filter-bar>select{width:100%;min-width:0;height:36px;padding:0 27px 0 10px;font-size:13px}
+  .explore-page #owner-type-filter{grid-column:1;grid-row:2}
+  .explore-page #category-filter{grid-column:2;grid-row:2}
+  .explore-page #type-filter{grid-column:1;grid-row:3}
+  .explore-page .more-filters-button{grid-column:2/4;grid-row:3;height:36px;justify-self:end;padding:0 2px;font-size:12px}
+  .explore-page .more-filters{z-index:10}
+  .explore-page .bulk-toolbar{margin-top:10px}
+  .explore-page .documents-table-card{width:calc(100% - 6px);height:auto;min-height:0;margin:10px 3px 0;display:flex;flex-direction:column;overflow:hidden;border-radius:4px}
+  .explore-page .bulk-toolbar:not([hidden])+.documents-table-card{margin-top:10px}
+  .explore-page .table-scroll{width:100%;height:auto;min-height:0;flex:0 0 auto;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .explore-page .table-scroll::-webkit-scrollbar{display:none}
+  .explore-page .documents-table{width:975px;min-width:975px;table-layout:fixed}
+  .explore-page .documents-table .check-col,.explore-page .documents-table td:first-child{display:none}
+  .explore-page .documents-table th,.explore-page .documents-table td{height:61px;padding:0 10px;white-space:nowrap}
+  .explore-page .documents-table th{font-size:12px;line-height:16px}
+  .explore-page .documents-table td{font-size:13px;line-height:18px}
+  .explore-page .documents-table th.document-col,.explore-page .documents-table td:nth-child(2){width:245px;padding-left:16px}
+  .explore-page .documents-table th.employee-col,.explore-page .documents-table td:nth-child(3){width:110px}
+  .explore-page .documents-table th.id-col,.explore-page .documents-table td:nth-child(4){width:76px}
+  .explore-page .documents-table th.category-col,.explore-page .documents-table td:nth-child(5){width:140px}
+  .explore-page .documents-table th.format-col,.explore-page .documents-table td:nth-child(6){width:90px}
+  .explore-page .documents-table th.size-col,.explore-page .documents-table td:nth-child(7){width:65px}
+  .explore-page .documents-table th.date-col,.explore-page .documents-table td:nth-child(8){width:130px}
+  .explore-page .documents-table th.actions-col,.explore-page .documents-table td:nth-child(9){width:119px}
+  .explore-page .documents-table .document-name{gap:8px}
+  .explore-page .documents-table .document-name span{max-width:195px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .explore-page .table-footer{height:78px;min-height:78px;padding:0 12px;justify-content:flex-start;background:#f9fafb}
+  .explore-page .table-footer>label{gap:8px;font-size:13px}
+  .explore-page .table-footer select{font-size:14px}
+  .explore-page .pagination{display:none}
+  .explore-page .explore-toast{right:12px;bottom:calc(86px + env(safe-area-inset-bottom))}
+}
+
+@media(max-width:380px){
+  .explore-page .explore-main{padding-right:12px;padding-left:12px}
+  .explore-page .filter-bar{grid-template-columns:138px 132px minmax(0,1fr)}
+  .explore-page .explore-upload{padding:0 10px;font-size:13px}
+  .explore-page .documents-table-card{width:100%;margin-right:0;margin-left:0}
+}
