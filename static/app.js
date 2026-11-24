@@ -27,27 +27,24 @@ function escapeHtml(value) {
 function formatUploadTime(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return date.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
 function renderDocuments(documents) {
   const tbody = document.querySelector('#upload-rows');
   tbody.innerHTML = documents.map((doc) => {
     const format = escapeHtml(doc.format.toUpperCase());
+    const documentName = doc.document_title?.trim() || doc.filename;
+    const ownerType = ({ employee: 'Employee', client: 'Client', project: 'Project' })[doc.owner_type] || 'Employee';
     const iconClass = format === 'PDF' ? 'file-pdf' : ['PNG', 'JPG', 'JPEG'].includes(format) ? 'file-image' : 'file-doc';
     const icon = iconClass === 'file-image'
       ? '<path d="M5 4h14v16H5z"/><path d="m7 17 4-4 3 3 2-2 3 3"/><circle cx="9" cy="9" r="1.5"/>'
       : '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/>';
-    return `<tr><td class="filename" data-label="Document Name"><svg class="${iconClass}" viewBox="0 0 24 24">${icon}</svg><em>${escapeHtml(doc.filename)}</em></td><td data-label="Owner">${escapeHtml(doc.owner_name || doc.employee || '—')}</td><td data-label="Category">${escapeHtml(doc.category)}</td><td data-label="Format"><span class="format">${format}</span></td><td data-label="Uploaded">${escapeHtml(formatUploadTime(doc.uploaded_at))}</td><td data-label="Action"><button class="text-action" data-document-id="${doc.id}">View</button></td></tr>`;
+    return `<tr><td class="filename" data-label="Document Name"><svg class="${iconClass}" viewBox="0 0 24 24">${icon}</svg><em>${escapeHtml(documentName)}</em></td><td data-label="Type">${ownerType}</td><td data-label="Owner">${escapeHtml(doc.owner_name || doc.employee || '—')}</td><td data-label="Category">${escapeHtml(doc.category)}</td><td data-label="Format"><span class="format">${format}</span></td><td data-label="Uploaded">${escapeHtml(formatUploadTime(doc.uploaded_at))}</td><td data-label="Action"><button type="button" class="text-action" data-document-id="${doc.id}">View</button></td></tr>`;
   }).join('');
   document.querySelector('#uploads-empty').hidden = documents.length > 0;
   tbody.querySelectorAll('[data-document-id]').forEach((button) => {
-    button.addEventListener('click', async () => {
-      try {
-        const doc = await api(`/api/documents/${button.dataset.documentId}`);
-        showToast(`${doc.filename} · ${doc.category} · ${doc.employee || 'Unassigned'}`);
-      } catch (error) { showToast(error.message); }
-    });
+    button.addEventListener('click', () => { window.location.href = `/documents/${button.dataset.documentId}/view`; });
   });
 }
 
@@ -61,22 +58,23 @@ async function loadDocuments(query = '') {
 async function loadDashboard() {
   try {
     const data = await api('/api/dashboard');
-    const numbers = document.querySelectorAll('.stat-card .stat-bottom strong');
-    [data.total_employees, data.total_documents, data.uploaded_this_month, data.categories]
-      .forEach((number, index) => { numbers[index].textContent = number; });
+    document.querySelector('#dashboard-total-documents').textContent = Number(data.total_documents || 0).toLocaleString();
+    document.querySelector('#dashboard-total-employees').textContent = Number(data.total_employees || 0).toLocaleString();
+    document.querySelector('#dashboard-total-clients').textContent = Number(data.total_clients || 0).toLocaleString();
+    document.querySelector('#dashboard-total-projects').textContent = Number(data.total_projects || 0).toLocaleString();
     document.querySelectorAll('[data-category-count]').forEach((badge) => {
       badge.textContent = data.category_counts?.[badge.dataset.categoryCount] ?? 0;
     });
-    const employees = await api('/api/employees');
-    const tbody = document.querySelector('#employees tbody');
-    tbody.innerHTML = employees.slice(0, 9).map((employee, index) => {
-      const initials = employee.name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
+    const projects = await api('/api/projects');
+    const tbody = document.querySelector('#project-overview-rows');
+    tbody.innerHTML = projects.slice(0, 9).map((project, index) => {
+      const initials = project.name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
       const colors = ['avatar-blue', 'avatar-rust', 'avatar-pale', 'avatar-lilac'];
-      return `<tr><td class="employee-name"><span class="avatar ${colors[index % colors.length]}">${escapeHtml(initials)}</span>${escapeHtml(employee.name)}</td><td>${escapeHtml(employee.employee_code || '')}</td><td>${escapeHtml(employee.designation)}</td><td><span class="doc-pill">${employee.document_count} docs</span></td><td><button class="text-action" data-employee-id="${employee.id}">View</button></td></tr>`;
-    }).join('') || '<tr><td class="empty-state" colspan="5">No employees yet.</td></tr>';
-    tbody.querySelectorAll('[data-employee-id]').forEach((button) => button.addEventListener('click', () => {
-      const employee = employees.find((item) => item.id === Number(button.dataset.employeeId));
-      if (employee) window.location.href = `/employees/${employee.id}/documents`;
+      return `<tr><td class="employee-name"><span class="avatar ${colors[index % colors.length]}">${escapeHtml(initials)}</span>${escapeHtml(project.name)}</td><td>${escapeHtml(project.project_code || '—')}</td><td>${escapeHtml(project.client_name || '—')}</td><td><span class="project-status">${escapeHtml(project.status || 'Active')}</span></td><td><button type="button" class="text-action" data-project-id="${project.id}">View</button></td></tr>`;
+    }).join('') || '<tr><td class="empty-state" colspan="5">No projects yet.</td></tr>';
+    tbody.querySelectorAll('[data-project-id]').forEach((button) => button.addEventListener('click', () => {
+      const project = projects.find((item) => item.id === Number(button.dataset.projectId));
+      if (project) window.location.href = `/projects/${project.id}/documents`;
     }));
   } catch (error) { showToast(`Backend unavailable: ${error.message}`); }
 }
@@ -104,7 +102,7 @@ filePicker.addEventListener('change', async () => {
   form.append('category', 'Others');
   try {
     const doc = await api('/api/documents', { method: 'POST', body: form });
-    showToast(`${doc.filename} uploaded successfully.`);
+    showToast(`${doc.document_title?.trim() || doc.filename} uploaded successfully.`);
     await Promise.all([loadDocuments(uploadFilter.value), loadDashboard()]);
   } catch (error) { showToast(error.message); }
   filePicker.value = '';

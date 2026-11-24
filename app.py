@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import os
+import secrets
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, jsonify, redirect, render_template, request, send_from_directory, session, url_for
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -17,8 +19,34 @@ PHOTOS = INSTANCE / "photos"
 DATABASE = INSTANCE / "desflyer.sqlite3"
 ALLOWED_EXTENSIONS = {"pdf", "doc", "docx", "png", "jpg", "jpeg", "txt", "xlsx"}
 
+
+def safe_local_target(target: str) -> bool:
+    parsed = urlparse(target)
+    return target.startswith("/") and not target.startswith("//") and "\\" not in target and not parsed.netloc
+
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024
+INSTANCE.mkdir(exist_ok=True)
+secret_file = INSTANCE / ".session-secret"
+if os.environ.get("FLASK_SECRET_KEY"):
+    app.secret_key = os.environ["FLASK_SECRET_KEY"]
+else:
+    if not secret_file.exists():
+        secret_file.write_text(secrets.token_hex(32), encoding="utf-8")
+    app.secret_key = secret_file.read_text(encoding="utf-8").strip()
+app.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax")
+
+
+@app.before_request
+def require_admin_login():
+    public_endpoints = {"login", "logout", "static"}
+    if request.endpoint in public_endpoints or request.endpoint is None:
+        return None
+    if session.get("admin_authenticated"):
+        return None
+    if request.path.startswith("/api/"):
+        return jsonify(error="Please sign in to continue.", login_url=url_for("login")), 401
+    return redirect(url_for("login", next=request.full_path if request.query_string else request.path))
 
 
 def connect_db() -> sqlite3.Connection:
@@ -150,6 +178,62 @@ def document_json(row: sqlite3.Row) -> dict[str, Any]:
     }
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if session.get("admin_authenticated") and request.method == "GET":
+        next_url = request.args.get("next", "")
+        return redirect(next_url if safe_local_target(next_url) else url_for("index"))
+    with connect_db() as db:
+        admin = db.execute("SELECT email,password_hash FROM admin_profile WHERE id=1").fetchone()
+    setup_required = not bool(admin["password_hash"])
+    error = ""
+
+    if request.method == "POST":
+        password = str(request.form.get("password", ""))
+        if setup_required:
+            confirm = str(request.form.get("confirm_password", ""))
+            if len(password) < 8:
+                error = "Choose a password with at least 8 characters."
+            elif password != confirm:
+                error = "The passwords do not match."
+            else:
+                with connect_db() as db:
+                    db.execute("UPDATE admin_profile SET password_hash=? WHERE id=1", (generate_password_hash(password),))
+                session.clear()
+                session["admin_authenticated"] = True
+                session["admin_email"] = admin["email"]
+                return redirect(url_for("index"))
+        elif (
+            admin["password_hash"]
+            and str(request.form.get("email", "")).strip().casefold() == admin["email"].strip().casefold()
+            and check_password_hash(admin["password_hash"], password)
+        ):
+            session.clear()
+            session["admin_authenticated"] = True
+            session["admin_email"] = admin["email"]
+            next_url = request.form.get("next", "")
+            if safe_local_target(next_url):
+                return redirect(next_url)
+            return redirect(url_for("index"))
+        else:
+            error = "The email address or password is incorrect."
+
+    return render_template(
+        "login.html",
+        setup_required=setup_required,
+        error=error,
+        next=request.args.get("next", request.form.get("next", "")),
+        admin_email=admin["email"],
+        current_year=datetime.now().year,
+    )
+
+
+@app.get("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+
 @app.get("/")
 def index():
     return render_template("index.html")
@@ -160,6 +244,8 @@ def dashboard_data():
     with connect_db() as db:
         employees = db.execute("SELECT COUNT(*) FROM employees").fetchone()[0]
         documents = db.execute("SELECT COUNT(*) FROM documents WHERE archived=0").fetchone()[0]
+        clients = db.execute("SELECT COUNT(*) FROM clients").fetchone()[0]
+        projects = db.execute("SELECT COUNT(*) FROM projects").fetchone()[0]
         uploads_month = db.execute(
             "SELECT COUNT(*) FROM documents WHERE archived=0 AND substr(uploaded_at,1,7)=?",
             (datetime.now(timezone.utc).strftime("%Y-%m"),),
@@ -181,6 +267,8 @@ def dashboard_data():
         return jsonify(
             total_employees=employees,
             total_documents=documents,
+            total_clients=clients,
+            total_projects=projects,
             uploaded_this_month=uploads_month,
             categories=category_count,
             category_counts=category_counts,
@@ -263,7 +351,7 @@ def set_admin_password():
 
 @app.get("/api/admin/login-activity")
 def admin_login_activity():
-    return jsonify(note="Authentication is not configured. This page is showing the current local app session only.", sessions=[])
+    return jsonify(note="This browser is signed in to the administrator account.", sessions=[{"email": session.get("admin_email", ""), "current": True}])
 
 
 @app.get("/api/documents")

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f9ff" />
+    <title>{{ 'Set up your account' if setup_required else 'Sign in' }} — DesFlyer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+
+    <link rel="stylesheet" href="/static/login.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-layout">
+      <section class="login-intro" aria-label="DesFlyer">
+        <a class="login-brand" href="/login">
+          <span class="login-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span>
+        </a>
+        <div class="login-intro-copy">
+          <span class="login-eyebrow">SECURE DOCUMENT WORKSPACE</span>
+          <h1>Everything important, in one place.</h1>
+          <p>Manage employee, client, and project documents securely with DesFlyer.</p>
+        </div>
+        <div class="login-intro-footer">Secure access for your organization</div>
+      </section>
+
+      <section class="login-form-side">
+        <div class="login-card">
+          <div class="login-mobile-brand login-brand">
+            <span class="login-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span>
+          </div>
+          <span class="login-eyebrow">{{ 'FIRST-TIME SETUP' if setup_required else 'WELCOME BACK' }}</span>
+          <h2>{{ 'Create your admin password' if setup_required else 'Sign in to DesFlyer' }}</h2>
+          <p class="login-description">{{ 'Set a password to secure this administrator account.' if setup_required else 'Enter your administrator account details to continue.' }}</p>
+
+          {% if error %}<div class="login-error" role="alert">{{ error }}</div>{% endif %}
+
+          <form method="post" action="/login" class="login-form">
+            {% if not setup_required %}
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" value="{{ request.form.get('email', admin_email|default('admin@desflyer.com')) }}" autocomplete="username" required autofocus />
+            {% else %}
+              <div class="setup-account"><span>Administrator account</span><strong>{{ admin_email|default('admin@desflyer.com') }}</strong></div>
+            {% endif %}
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="{{ 'new-password' if setup_required else 'current-password' }}" minlength="8" required autofocus />
+            {% if setup_required %}
+              <label for="confirm-password">Confirm password</label>
+              <input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" minlength="8" required />
+            {% endif %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button class="login-submit" type="submit">{{ 'Create password' if setup_required else 'Sign in' }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </form>
+          <p class="login-security"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Your sign-in is protected with encrypted sessions.</p>
+        </div>
+        <footer class="login-copyright">© {{ current_year }} DesFlyer Document Management</footer>
+      </section>
+    </main>
+  </body>
+</html>

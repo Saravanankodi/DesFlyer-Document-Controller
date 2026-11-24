@@ -157,7 +157,7 @@ document.querySelectorAll('dialog').forEach((dialog) => dialog.addEventListener(
   if (event.target === dialog) dialog.close();
 }));
 document.querySelectorAll('#sidebar-logout,#logout-button').forEach((button) => button.addEventListener('click', () => {
-  showToast('Sign-in is not configured in this app yet.');
+  window.location.href = '/logout';
 }));
 
 loadProfile();

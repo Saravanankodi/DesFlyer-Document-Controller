@@ -5,22 +5,23 @@
   <title>Add Project — DesFlyer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/styles.css" /><link rel="stylesheet" href="/static/add_employee.css" /><link rel="stylesheet" href="/static/responsive.css" /><link rel="stylesheet" href="/static/add_entities.css" />
-</head>
+  <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/add_employee.css" /><link rel="stylesheet" href="/static/responsive.css" /><link rel="stylesheet" href="/static/add_entities.css" />
+  </head>
 <body class="add-page add-entity-page">
   <aside class="sidebar">
     <a class="brand" href="/" aria-label="DesFlyer home"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M7 3.75h7l4.25 4.5v12H7z"/><path d="M14 3.75v4.5h4.25M9.5 12h6M9.5 15h6M9.5 18h4"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span></a>
     <nav class="side-nav" aria-label="Main navigation">
       <a class="nav-link" href="/"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>Dashboard</a>
-      <a class="nav-link" href="/documents"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg>Documents Controller</a>
       <a class="nav-link" href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M12 16V9m-3 3 3-3 3 3"/></svg>Upload Documents</a>
-      <a class="nav-link" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0"/></svg>Employees Details</a>
+      <a class="nav-link" href="/documents"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></svg>Documents Controller</a>
+      <a class="nav-link" href="/employees"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0"/></svg>Employee</a>
       <a class="nav-link" href="/clients"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1m-6 4h1m4 0h1m-6 7v-4h4v4"/></svg>Clients</a>
       <a class="nav-link active" href="/projects"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="1"/><path d="M8 5V3h8v2M3 10h18m-12 4h6"/></svg>Projects</a>
-      <a class="nav-link" href="/employees/new"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0"/></svg>Add Employee</a>
+
       <div class="nav-section">Account</div><a class="nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg>Profile</a>
     </nav>
-    <button class="logout" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button>
+    <button class="logout" onclick="window.location.href='/logout'" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M13 4h7v16h-7"/></svg>Logout</button>
   </aside>
   <header class="add-topbar"><div class="breadcrumbs"><a href="/">Dashboard</a><span>›</span><a href="/projects">Projects</a><span>›</span><strong>Add Project</strong></div><div class="user-avatar" aria-label="Account">A</div></header>
   <main class="add-main"><div class="add-content">

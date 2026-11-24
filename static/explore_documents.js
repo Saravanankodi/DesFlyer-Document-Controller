@@ -42,8 +42,8 @@ function formatIcon(format) {
 
 function renderRows(items) {
   documentRows.innerHTML = items.map((doc) => `<tr data-id="${doc.id}">
-    <td><input class="row-select" type="checkbox" value="${doc.id}" aria-label="Select ${escapeHtml(doc.filename)}" /></td>
-    <td class="document-cell"><div class="document-name">${formatIcon(doc.format)}<span title="${escapeHtml(doc.filename)}">${escapeHtml(doc.filename)}</span></div></td>
+    <td><input class="row-select" type="checkbox" value="${doc.id}" aria-label="Select ${escapeHtml(doc.document_title?.trim() || doc.filename)}" /></td>
+    <td class="document-cell"><div class="document-name">${formatIcon(doc.format)}<span title="${escapeHtml(doc.document_title?.trim() || doc.filename)}">${escapeHtml(doc.document_title?.trim() || doc.filename)}</span></div></td>
     <td><a class="employee-link" href="/${doc.owner_type === 'employee' ? 'employees' : `${doc.owner_type}s`}/${doc.owner_id}/documents">${escapeHtml(doc.owner_name || doc.employee || '—')}</a></td><td>${escapeHtml(doc.owner_code || doc.employee_code || '—')}</td>
     <td><span class="category-pill" title="${escapeHtml(doc.category)}">${escapeHtml(doc.category)}</span></td>
     <td>${escapeHtml(doc.format)}</td><td>${formatSize(doc.file_size)}</td><td>${formatDate(doc.uploaded_at)}</td>
@@ -167,16 +167,30 @@ document.querySelector('#select-all').addEventListener('change', (event) => {
   document.querySelectorAll('.row-select').forEach((checkbox) => { checkbox.checked = event.target.checked; });
   updateSelection();
 });
-document.querySelector('#archive-selected').addEventListener('click', async () => {
-  const ids = [...document.querySelectorAll('.row-select:checked')].map((checkbox) => Number(checkbox.value));
-  if (!ids.length) return;
+const archiveDialog = document.querySelector('#archive-confirm-dialog');
+const archiveConfirmButton = document.querySelector('#archive-confirm');
+let pendingArchiveIds = [];
+document.querySelector('#archive-selected').addEventListener('click', () => {
+  pendingArchiveIds = [...document.querySelectorAll('.row-select:checked')].map((checkbox) => Number(checkbox.value));
+  if (!pendingArchiveIds.length) return;
+  const count = pendingArchiveIds.length;
+  document.querySelector('#archive-confirm-message').textContent = `Archive ${count} selected document${count === 1 ? '' : 's'}? They will be moved out of the active documents list.`;
+  archiveDialog.showModal();
+});
+document.querySelector('#archive-cancel').addEventListener('click', () => archiveDialog.close());
+archiveConfirmButton.addEventListener('click', async () => {
+  if (!pendingArchiveIds.length) return;
+  archiveConfirmButton.disabled = true;
   try {
-    const response = await fetch('/api/documents/bulk-archive', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids }) });
+    const response = await fetch('/api/documents/bulk-archive', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: pendingArchiveIds }) });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'Archive action failed.');
+    archiveDialog.close();
     showToast(`${result.updated} document${result.updated === 1 ? '' : 's'} archived.`);
-    loadDocuments();
+    pendingArchiveIds = [];
+    await loadDocuments();
   } catch (error) { showToast(error.message); }
+  finally { archiveConfirmButton.disabled = false; }
 });
 document.querySelector('#more-filters-toggle').addEventListener('click', () => {
   const filters = document.querySelector('#more-filters');

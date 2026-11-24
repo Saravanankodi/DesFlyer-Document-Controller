@@ -3,6 +3,7 @@ const ownerTypeSelect = document.querySelector('#owner-type');
 const employeeSearch = document.querySelector('#employee-search');
 const employeeMenu = document.querySelector('#employee-menu');
 const employeeFileInput = document.querySelector('#document-file');
+const documentNameInput = document.querySelector('#document-name');
 const dropzone = document.querySelector('#dropzone');
 const fileRow = document.querySelector('#file-row');
 const uploadMessage = document.querySelector('#upload-message');
@@ -107,14 +108,19 @@ function setFile(file) {
   uploadMessage.textContent = '';
   if (!file) {
     selectedFile = null; employeeFileInput.value = ''; fileRow.hidden = true;
-    document.querySelector('#summary-size').textContent = '—'; document.querySelector('#document-name').value = ''; return;
+    document.querySelector('#summary-size').textContent = '—'; documentNameInput.value = ''; return;
   }
-  if (!/\.(pdf|doc|docx|jpg|jpeg|png)$/i.test(file.name)) { uploadMessage.textContent = 'Choose a PDF, DOC, DOCX, JPG, or PNG file.'; employeeFileInput.value = ''; return; }
-  if (file.size > 20 * 1024 * 1024) { uploadMessage.textContent = 'Files must be 20 MB or smaller.'; employeeFileInput.value = ''; return; }
+  if (!/\.(pdf|doc|docx|jpg|jpeg|png)$/i.test(file.name)) {
+    setFile(null); uploadMessage.textContent = 'Choose a PDF, DOC, DOCX, JPG, or PNG file.'; return;
+  }
+  if (file.size > 20 * 1024 * 1024) {
+    setFile(null); uploadMessage.textContent = 'Files must be 20 MB or smaller.'; return;
+  }
   selectedFile = file;
   document.querySelector('#file-name').textContent = file.name;
   document.querySelector('#summary-size').textContent = fileSize(file.size);
-  document.querySelector('#document-name').value = file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').trim();
+  documentNameInput.value = file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').trim();
+  employeeFileInput.value = '';
   fileRow.hidden = false;
 }
 
