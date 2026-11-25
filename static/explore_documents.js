@@ -66,8 +66,12 @@ function renderRows(items) {
 function updateSelection() {
   const selected = [...document.querySelectorAll('.row-select:checked')];
   const toolbar = document.querySelector('#bulk-toolbar');
+  const archiveButton = document.querySelector('#archive-selected');
+  const isArchivedView = document.querySelector('#archived-filter').checked;
   toolbar.hidden = selected.length === 0;
   document.querySelector('#selection-count').textContent = `${selected.length} selected`;
+  archiveButton.disabled = isArchivedView;
+  archiveButton.title = isArchivedView ? 'These documents are already archived.' : 'Archive selected documents';
   const allBoxes = [...document.querySelectorAll('.row-select')];
   document.querySelector('#select-all').checked = allBoxes.length > 0 && selected.length === allBoxes.length;
 }
@@ -185,6 +189,7 @@ archiveConfirmButton.addEventListener('click', async () => {
     const response = await fetch('/api/documents/bulk-archive', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: pendingArchiveIds }) });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'Archive action failed.');
+    if (!result.updated) throw new Error('No active selected documents were found to archive.');
     archiveDialog.close();
     showToast(`${result.updated} document${result.updated === 1 ? '' : 's'} archived.`);
     pendingArchiveIds = [];

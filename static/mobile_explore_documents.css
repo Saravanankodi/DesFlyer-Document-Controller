@@ -1,7 +1,7 @@
 @media(max-width:700px){
   .explore-page{width:100%;min-width:0;min-height:941px;padding:0 0 calc(74px + env(safe-area-inset-bottom));overflow-x:hidden;background:#f9f9ff}
   .explore-page .sidebar,.explore-page .explore-topbar{display:none}
-  .explore-page .explore-main{width:100%;min-height:941px;margin:0;padding:76px 13px 56px;background:#f9f9ff}
+  .explore-page .explore-main{width:100%;min-height:941px;margin:0;padding:14px 13px 56px;background:#f9f9ff}
   .explore-page .explore-content{width:100%;max-width:none;margin:0}
   .explore-page .explore-heading{height:auto;min-height:0;display:block;margin:0}
   .explore-page .explore-heading h1{font-size:24px;line-height:32px}

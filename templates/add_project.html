@@ -7,10 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Sanchez&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/styles.css" />
     <link rel="stylesheet" href="/static/add_employee.css" /><link rel="stylesheet" href="/static/responsive.css" /><link rel="stylesheet" href="/static/add_entities.css" />
+  <link rel="stylesheet" href="/static/mobile_dashboard.css" />
+  <link rel="stylesheet" href="/static/mobile_add_employee.css" />
   </head>
 <body class="add-page add-entity-page">
   <aside class="sidebar">
-    <a class="brand" href="/" aria-label="DesFlyer home"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M7 3.75h7l4.25 4.5v12H7z"/><path d="M14 3.75v4.5h4.25M9.5 12h6M9.5 15h6M9.5 18h4"/></svg></span><span><strong>DesFlyer</strong><small>Document Management</small></span></a>
+    <a class="brand" href="/" aria-label="DesFlyer home"><img class="brand-logo" src="/static/desflyer-doccontrol-logo.png" alt="DesFlyer Document Control" /></a>
     <nav class="side-nav" aria-label="Main navigation">
       <a class="nav-link" href="/"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>Dashboard</a>
       <a class="nav-link" href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M12 16V9m-3 3 3-3 3 3"/></svg>Upload Documents</a>
@@ -41,6 +43,28 @@
       <aside class="preview-column"><h2>Project Preview</h2><section class="preview-card"><div class="preview-banner"><div class="preview-avatar entity-preview-avatar" id="preview-avatar">P</div><strong id="preview-name">New Project</strong></div><div class="preview-details"><div class="preview-designation" id="preview-client">No client linked</div><div class="preview-rule"></div><p><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="1"/><path d="M8 5V3h8v2M3 10h18m-12 4h6"/></svg><span id="preview-code">DFP-0001</span></p><p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><span id="preview-status">Active</span></p></div></section></aside>
     </div>
   </div></main>
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation" data-expanded="false">
+      <div class="mobile-quick-actions" id="mobile-quick-actions" hidden>
+        <a href="/documents/upload"><svg viewBox="0 0 24 24"><path d="M12 15V4m-4 4 4-4 4 4M5 14v5h14v-5"/></svg><span>Upload Doc</span></a>
+        <a href="/employees/new"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.4-3.3 2.2-5 5.5-5s5.1 1.7 5.5 5M18 7v7m-3.5-3.5h7"/></svg><span>Add Emp</span></a>
+        <a href="/clients/new"><svg viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16M2 21h20M9 9h1m4 0h1m-6 4h1m4 0h1m-4 8v-4h2v4"/><path d="M18 8v5m-2.5-2.5h5"/></svg><span>Add Client</span></a>
+        <a href="/projects/new"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18m-11 0v2h4v-2"/></svg><span>Add Project</span></a>
+      </div>
+      <div class="mobile-nav-items">
+        <a class="mobile-nav-link active" href="/" aria-label="Home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+        <a class="mobile-nav-link" href="/documents"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><span>Documents</span></a>
+        <span class="mobile-nav-spacer" aria-hidden="true"></span>
+        <button class="mobile-nav-link entity-nav-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mobile-entity-menu" aria-label="Show entity pages"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1"/><circle cx="12" cy="10" r="2.2"/><path d="M8.5 16c.7-2.5 6.3-2.5 7 0M8 3v4M16 3v4"/></svg><span>Entities</span></button>
+        <a class="mobile-nav-link" href="/profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4.2 3-6 7.5-6s7 1.8 7.5 6z"/></svg><span>Profile</span></a>
+      </div>
+      <div class="mobile-entity-menu" id="mobile-entity-menu" hidden>
+        <a href="/employees">Employees</a>
+        <a href="/clients">Clients</a>
+        <a href="/projects">Projects</a>
+      </div>
+      <button class="mobile-nav-fab" type="button" aria-label="Open quick actions" aria-expanded="false" aria-controls="mobile-quick-actions"><svg class="mobile-nav-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><svg class="mobile-nav-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </nav>
+    <script src="/static/mobile_dashboard.js"></script>
   <script src="/static/add_project.js"></script>
 </body>
 </html>

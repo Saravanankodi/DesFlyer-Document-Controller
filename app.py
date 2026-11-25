@@ -506,11 +506,17 @@ def download_document(document_id: int):
 def bulk_archive_documents():
     payload = request.get_json(silent=True) or {}
     ids = payload.get("ids", [])
-    if not isinstance(ids, list) or not ids or not all(isinstance(item, int) for item in ids):
+    if not isinstance(ids, list) or not ids or not all(type(item) is int and item > 0 for item in ids):
         return jsonify(error="Choose one or more documents to archive."), 400
+    ids = list(dict.fromkeys(ids))
+    placeholders = ",".join("?" for _ in ids)
     with connect_db() as db:
-        db.executemany("UPDATE documents SET archived=1 WHERE id=?", [(item,) for item in ids])
-    return jsonify(ok=True, updated=len(ids))
+        cursor = db.execute(
+            f"UPDATE documents SET archived=1 WHERE archived=0 AND id IN ({placeholders})",
+            ids,
+        )
+        updated = cursor.rowcount
+    return jsonify(ok=True, updated=updated)
 
 
 @app.post("/api/documents/<int:document_id>/archive")

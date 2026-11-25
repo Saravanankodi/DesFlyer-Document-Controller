@@ -2,7 +2,7 @@
   .employees-page{width:100%;min-width:0;min-height:1206px;padding:0 0 calc(74px + env(safe-area-inset-bottom));overflow-x:hidden;background:#f9f9ff}
   .employees-page .sidebar,.employees-page .employees-topbar{display:none}
   .employees-page .employees-main{width:100%;height:auto;min-height:1206px;margin:0;padding:0 20px 80px;background:#f9f9ff}
-  .employees-page .employees-content{position:relative;width:100%;height:1206px;min-height:1206px;margin:0;max-width:none}
+  .employees-page .employees-content{position:relative;width:100%;height:1206px;min-height:1206px;margin:0;max-width:none;transform:translateY(-42px)}
   .employees-page .employees-heading{position:absolute;top:56px;right:0;left:0;height:120px;display:block}
   .employees-page .employees-heading h1{font-size:24px;line-height:32px;letter-spacing:-.24px}
   .employees-page .employees-heading p{margin-top:4px;font-size:14px;line-height:20px;white-space:nowrap}
